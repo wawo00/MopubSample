@@ -1,0 +1,89 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    buildToolsVersion "28.0.3"
+    defaultConfig {
+        applicationId "com.test.m3"
+        minSdkVersion 24
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+// mobpub
+    implementation('com.mopub:mopub-sdk:+@aar') {
+        transitive = true
+    }
+
+
+//admob
+    implementation 'com.google.android.gms:play-services-ads:18.2.0'
+
+// AdColony
+    implementation 'com.adcolony:sdk:4.1.4'
+    implementation 'com.mopub.mediation:adcolony:4.1.4.0'
+
+// AppLovin
+    implementation 'com.applovin:applovin-sdk:9.11.6'
+    implementation 'com.mopub.mediation:applovin:9.11.6.0'
+
+// Tapjoy
+    implementation 'com.tapjoy:tapjoy-android-sdk:12.4.2@aar'
+    implementation 'com.mopub.mediation:tapjoy:12.4.2.0'
+
+// Vungle
+    implementation 'com.vungle:publisher-sdk-android:6.5.2'
+    implementation 'com.mopub.mediation:vungle:6.5.2.0'
+
+// ironSource
+    implementation 'com.ironsource.sdk:mediationsdk:6.15.0.1@jar'
+    implementation 'com.mopub.mediation:ironsource:6.15.0.1.0'
+
+// Unity Ads
+    implementation 'com.unity3d.ads:unity-ads:3.4.2'
+    implementation 'com.mopub.mediation:unityads:3.4.2.0'
+
+// Google (AdMob & Ad Manager)
+    implementation 'com.google.android.gms:play-services-ads:19.0.1'
+    implementation 'com.mopub.mediation:admob:19.0.1.0'
+
+// Facebook Audience Network
+    implementation 'com.facebook.android:audience-network-sdk:5.7.1'
+    implementation 'com.mopub.mediation:facebookaudiencenetwork:5.7.1.1'
+
+// Chartboost
+    implementation 'com.chartboost:chartboost-sdk:8.0.1'
+    implementation 'com.mopub.mediation:chartboost:8.0.1.0'
+
+// Mintegral
+    implementation 'com.mintegral.msdk:mtgbanner:13.0.31'
+    implementation 'com.mintegral.msdk:interstitialvideo:13.0.31'
+    implementation 'com.mintegral.msdk:videojs:13.0.31'
+    implementation 'com.mintegral.msdk:nativeex:13.0.31'
+    implementation 'com.mintegral.msdk:mtgjscommon:13.0.31'
+    implementation 'com.mintegral.msdk:playercommon:13.0.31'
+    implementation 'com.mintegral.msdk:reward:13.0.31'
+    implementation 'com.mintegral.msdk:videocommon:13.0.31'
+    implementation 'com.mintegral.msdk:common:13.0.31'
+    implementation 'com.mintegral.msdk:mtgnative:13.0.31'
+    implementation 'com.mintegral.msdk:mtgbid:13.0.31'
+    implementation 'com.mopub.mediation:mintegral:13.0.31.0'
+
+
+}
