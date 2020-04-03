@@ -13,8 +13,8 @@ import com.mopub.mobileads.MoPubInterstitial;
 
 public class InterActivity extends AppCompatActivity implements MoPubInterstitial.InterstitialAdListener {
     public final static String TAG = "Roy_mopub";
-
     private static final String AD_INTER_UNIT = "e80371c8e58749d8bd191283ec033bb8";
+
     private MoPubInterstitial mMoPubInterstitial;
 
     @Override
