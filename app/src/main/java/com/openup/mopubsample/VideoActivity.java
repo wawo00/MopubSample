@@ -78,6 +78,7 @@ public class VideoActivity extends AppCompatActivity implements MoPubRewardedVid
     @Override
     public void onRewardedVideoLoadFailure(@NonNull String adUnitId, @NonNull MoPubErrorCode errorCode) {
         Log.i(TAG, "onRewardedVideoLoadFailure: "+errorCode);
+        MoPubRewardedVideos.loadRewardedVideo(AD_VIDEO_UNIT);
     }
 
     @Override
@@ -98,6 +99,7 @@ public class VideoActivity extends AppCompatActivity implements MoPubRewardedVid
     @Override
     public void onRewardedVideoClosed(@NonNull String adUnitId) {
         Log.i(TAG, "onRewardedVideoClosed: ");
+        MoPubRewardedVideos.loadRewardedVideo(AD_VIDEO_UNIT);
     }
 
     @Override

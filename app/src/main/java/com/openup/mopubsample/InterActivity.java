@@ -34,6 +34,7 @@ public class InterActivity extends AppCompatActivity implements MoPubInterstitia
     @Override
     public void onInterstitialFailed(MoPubInterstitial interstitial, MoPubErrorCode errorCode) {
         Log.i(TAG, "onInterstitialFailed: " + errorCode);
+        mMoPubInterstitial.load();
     }
 
     @Override
@@ -49,6 +50,7 @@ public class InterActivity extends AppCompatActivity implements MoPubInterstitia
     @Override
     public void onInterstitialDismissed(MoPubInterstitial interstitial) {
         Log.i(TAG, "onInterstitialDismissed: ");
+        mMoPubInterstitial.load();
     }
 
     @Override
