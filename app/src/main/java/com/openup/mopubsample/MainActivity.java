@@ -113,8 +113,8 @@ public class MainActivity extends AppCompatActivity implements MoPubView.BannerA
         if (isInited){
             //about GDPR
             mPersonalInfoManager = MoPub.getPersonalInformationManager();
-            mPersonalInfoManager.forceGdprApplies();
-
+//            mPersonalInfoManager.forceGdprApplies(); 强制弹出gdpr弹框
+            Log.i(TAG, "shouldShowConsentDialog: "+mPersonalInfoManager.shouldShowConsentDialog());
             if (mPersonalInfoManager != null && mPersonalInfoManager.shouldShowConsentDialog()) {
                 mPersonalInfoManager.loadConsentDialog(initDialogLoadListener());
             }
