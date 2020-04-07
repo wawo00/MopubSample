@@ -113,6 +113,8 @@ public class MainActivity extends AppCompatActivity implements MoPubView.BannerA
         if (isInited){
             //about GDPR
             mPersonalInfoManager = MoPub.getPersonalInformationManager();
+            mPersonalInfoManager.forceGdprApplies();
+
             if (mPersonalInfoManager != null && mPersonalInfoManager.shouldShowConsentDialog()) {
                 mPersonalInfoManager.loadConsentDialog(initDialogLoadListener());
             }
@@ -137,7 +139,7 @@ public class MainActivity extends AppCompatActivity implements MoPubView.BannerA
 
             @Override
             public void onConsentDialogLoadFailed(@NonNull MoPubErrorCode moPubErrorCode) {
-                Log.e(TAG, "onConsentDialogLoadFailed: "+moPubErrorCode );
+                Log.e(TAG, "onConsentDialogLoadFailed: "+moPubErrorCode.toString() );
             }
         };
     }
