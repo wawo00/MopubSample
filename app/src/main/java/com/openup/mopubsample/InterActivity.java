@@ -10,13 +10,18 @@ import android.widget.Toast;
 import com.mopub.common.MoPub;
 import com.mopub.mobileads.MoPubErrorCode;
 import com.mopub.mobileads.MoPubInterstitial;
+import com.mopub.mobileads.MoPubRewardedVideos;
 
 public class InterActivity extends AppCompatActivity implements MoPubInterstitial.InterstitialAdListener {
     public final static String TAG = "Roy_mopub";
     private static final String AD_INTER_UNIT = "e80371c8e58749d8bd191283ec033bb8";
 
     private MoPubInterstitial mMoPubInterstitial;
+    // 重新请求次数
+    private int retryLoad = 0;
 
+    //最大请求次数
+    private int maxRetryLoad=3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +39,10 @@ public class InterActivity extends AppCompatActivity implements MoPubInterstitia
     @Override
     public void onInterstitialFailed(MoPubInterstitial interstitial, MoPubErrorCode errorCode) {
         Log.i(TAG, "onInterstitialFailed: " + errorCode);
-        mMoPubInterstitial.load();
+        if (retryLoad<maxRetryLoad){
+            mMoPubInterstitial.load();
+            retryLoad++;
+        }
     }
 
     @Override

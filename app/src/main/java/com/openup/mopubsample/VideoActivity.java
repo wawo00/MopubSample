@@ -18,7 +18,11 @@ import java.util.Set;
 public class VideoActivity extends AppCompatActivity implements MoPubRewardedVideoListener {
     public final static String TAG = "Roy_mopub";
     private static final String AD_VIDEO_UNIT = "740ec0f038704657a8e7bb124730abee";
+    // 重新请求次数
+    private int retryLoad = 0;
 
+    //最大请求次数
+    private int maxRetryLoad=3;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,8 +81,11 @@ public class VideoActivity extends AppCompatActivity implements MoPubRewardedVid
 
     @Override
     public void onRewardedVideoLoadFailure(@NonNull String adUnitId, @NonNull MoPubErrorCode errorCode) {
-        Log.i(TAG, "onRewardedVideoLoadFailure: "+errorCode);
-        MoPubRewardedVideos.loadRewardedVideo(AD_VIDEO_UNIT);
+        Log.i(TAG, "onRewardedVideoLoadFailure: " + errorCode);
+        if (retryLoad<maxRetryLoad){
+            MoPubRewardedVideos.loadRewardedVideo(AD_VIDEO_UNIT);
+            retryLoad++;
+        }
     }
 
     @Override
@@ -88,7 +95,7 @@ public class VideoActivity extends AppCompatActivity implements MoPubRewardedVid
 
     @Override
     public void onRewardedVideoPlaybackError(@NonNull String adUnitId, @NonNull MoPubErrorCode errorCode) {
-        Log.i(TAG, "onRewardedVideoPlaybackError: "+errorCode);
+        Log.i(TAG, "onRewardedVideoPlaybackError: " + errorCode);
     }
 
     @Override
@@ -104,13 +111,13 @@ public class VideoActivity extends AppCompatActivity implements MoPubRewardedVid
 
     @Override
     public void onRewardedVideoCompleted(@NonNull Set<String> adUnitIds, @NonNull MoPubReward reward) {
-        Log.i(TAG, "onRewardedVideoCompleted: reward "+reward);
+        Log.i(TAG, "onRewardedVideoCompleted: reward " + reward);
     }
 
     public void showReward(View view) {
-        if (MoPubRewardedVideos.hasRewardedVideo(AD_VIDEO_UNIT)){
+        if (MoPubRewardedVideos.hasRewardedVideo(AD_VIDEO_UNIT)) {
             MoPubRewardedVideos.showRewardedVideo(AD_VIDEO_UNIT);
-        }else{
+        } else {
             Log.i(TAG, "no ads to show: ");
         }
     }
