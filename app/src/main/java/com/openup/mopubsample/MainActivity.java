@@ -57,6 +57,10 @@ public class MainActivity extends AppCompatActivity implements MoPubView.BannerA
 
 
         MoPub.initializeSdk(this, configBuilder.build(), this);
+        // 同意gdpr
+        mPersonalInfoManager.grantConsent();
+        // 不同意gdpr
+        mPersonalInfoManager.revokeConsent();
         AppLovinSdk.initializeSdk(this);
     }
 
@@ -110,6 +114,10 @@ public class MainActivity extends AppCompatActivity implements MoPubView.BannerA
         startActivity(new Intent(this, InterActivity.class));
     }
 
+    /**
+     * 通过mopub的gdpr 弹框进行授权操作
+     * @param view
+     */
     public void showGDPR(View view) {
         if (isInited){
             //about GDPR
@@ -151,9 +159,9 @@ public class MainActivity extends AppCompatActivity implements MoPubView.BannerA
             public void onConsentStateChange(@NonNull ConsentStatus oldConsentStatus,
                                              @NonNull ConsentStatus newConsentStatus,
                                              boolean canCollectPersonalInformation) {
-                Log.i(TAG, "Consent: " + newConsentStatus.name());
-
+                // 根据 canCollectPersonalInformation 来获知用户是否同意gdpr
             }
+
         };
     }
 }
