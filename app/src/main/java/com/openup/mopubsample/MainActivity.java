@@ -51,17 +51,11 @@ public class MainActivity extends AppCompatActivity implements MoPubView.BannerA
         } else {
             configBuilder.withLogLevel(INFO);
         }
-
-        configBuilder.withAdditionalNetwork(MintegralAdapterConfiguration.class.getName());
-        MintegralAdapterConfiguration.setAge(25);
-
-
         MoPub.initializeSdk(this, configBuilder.build(), this);
         // 同意gdpr
-        mPersonalInfoManager.grantConsent();
+//        mPersonalInfoManager.grantConsent();
         // 不同意gdpr
-        mPersonalInfoManager.revokeConsent();
-        AppLovinSdk.initializeSdk(this);
+//        mPersonalInfoManager.revokeConsent();
     }
 
     @Override
