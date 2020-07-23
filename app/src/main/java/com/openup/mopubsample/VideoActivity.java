@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 
@@ -17,6 +20,8 @@ import com.mopub.mobileads.MoPubRewardedVideos;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class VideoActivity extends AppCompatActivity implements MoPubInterstitial.InterstitialAdListener {
     public final static String TAG = "Roy_mopub";
@@ -37,32 +42,33 @@ public class VideoActivity extends AppCompatActivity implements MoPubInterstitia
 
     //最大请求次数
     private int maxRetryLoad = 3;
-
+    List<String> adUnitIds;
+    Handler handler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
         MoPub.onCreate(this);
 //        MoPubRewardedVideos.loadRewardedVideo(AD_VIDEO_UNIT);
-        List<String> adUnitIds = new ArrayList<>();
+        adUnitIds = new ArrayList<>();
         adUnitIds.add(AD_VIDEO_UNIT5);
         adUnitIds.add(AD_VIDEO_UNIT1);
         adUnitIds.add(AD_VIDEO_UNIT2);
         adUnitIds.add(AD_VIDEO_UNIT3);
         adUnitIds.add(AD_VIDEO_UNIT4);
 
-        mMoPubInterstitial1 = new MoPubInterstitial(this, AD_INTER_UNIT1);
-        mMoPubInterstitial2 = new MoPubInterstitial(this, AD_INTER_UNIT2);
-        mMoPubInterstitial3 = new MoPubInterstitial(this, AD_INTER_UNIT3);
-
-        mMoPubInterstitial1.setInterstitialAdListener(this);
-        mMoPubInterstitial1.load();
-
-        mMoPubInterstitial2.setInterstitialAdListener(this);
-        mMoPubInterstitial2.load();
-
-        mMoPubInterstitial3.setInterstitialAdListener(this);
-        mMoPubInterstitial3.load();
+//        mMoPubInterstitial1 = new MoPubInterstitial(this, AD_INTER_UNIT1);
+//        mMoPubInterstitial2 = new MoPubInterstitial(this, AD_INTER_UNIT2);
+//        mMoPubInterstitial3 = new MoPubInterstitial(this, AD_INTER_UNIT3);
+//
+//        mMoPubInterstitial1.setInterstitialAdListener(this);
+//        mMoPubInterstitial1.load();
+//
+//        mMoPubInterstitial2.setInterstitialAdListener(this);
+//        mMoPubInterstitial2.load();
+//
+//        mMoPubInterstitial3.setInterstitialAdListener(this);
+//        mMoPubInterstitial3.load();
 
 
         for (String adUnitId:adUnitIds) {
@@ -70,6 +76,27 @@ public class VideoActivity extends AppCompatActivity implements MoPubInterstitia
             MoPubRewardedVideos.setRewardedVideoListener(new MyListener(adUnitId));
 
         }
+
+        HandlerThread handlerThread=new HandlerThread(TAG);
+        handlerThread.start();
+        handler=new Handler(handlerThread.getLooper()){
+            @Override
+            public void handleMessage(Message msg) {
+                while(true){
+                    for (String adUnitId:adUnitIds) {
+                        try {
+                            Thread.sleep(1*1000);
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        Log.i(TAG, adUnitId+"---hasRewardVideo: "+ MoPubRewardedVideos.hasRewardedVideo(adUnitId));
+                    }
+
+                }
+            }
+        };
+        handler.sendEmptyMessage(1);
+
 
 
     }
